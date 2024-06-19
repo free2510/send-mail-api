@@ -7,11 +7,20 @@
     <!-- Include EmailJS SDK -->
     <script src="https://cdn.emailjs.com/dist/email.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-      function sendEmail() {
+ function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        to: params.get('to'),
+        subject: params.get('subject'),
+        message: params.get('message')
+    };
+}
+
+function sendEmail() {
     const params = getQueryParams();
     if (params.to && params.subject && params.message) {
         const templateParams = {
-            to: params.to,
+            to_email: params.to,
             subject: params.subject,
             message: params.message
         };
@@ -32,6 +41,8 @@
         alert('Missing parameters. Please provide "to", "subject", and "message" in the URL.');
     }
 }
+
+window.onload = sendEmail;
 
     </script>
 </head>
