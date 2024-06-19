@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Email with URL Parameters</title>
+    <!-- Include EmailJS SDK -->
     <script src="https://cdn.emailjs.com/dist/email.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        (function() {
-            // Initialize EmailJS with your user ID
-            emailjs.init("your_user_id");
-        })();
-
         // Function to get URL parameters
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
@@ -32,7 +28,7 @@
                 };
 
                 // Send email using EmailJS
-                emailjs.send('your_service_id', 'your_template_id', templateParams)
+                emailjs.send("service_vwyinve", "template_id", templateParams, "46kPHVk2Hlf0ZuJ5s")
                     .then(response => {
                         alert('Email sent successfully!');
                         console.log('SUCCESS!', response.status, response.text);
