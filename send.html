@@ -17,48 +17,31 @@
             };
         }
 
-        // Function to send email
+        // Function to send the email using EmailJS
         function sendEmail() {
             const params = getQueryParams();
-
-            // Check if all required parameters are provided
             if (params.to && params.subject && params.message) {
-                // Create the email template dynamically as HTML content
-                const emailContent = `
-                    <h1>${params.subject}</h1>
-                    <p>${params.message}</p>
-                `;
-
-                // Prepare the parameters for EmailJS
                 const templateParams = {
-                    to_email: params.to,  // Recipient email address
+                    to_email: params.to,
                     subject: params.subject,
-                    html_message: emailContent  // HTML content of the email
+                    message: params.message
                 };
 
-                // Log the template parameters to check their values
-                console.log('Template Params:', templateParams);
-
-                // Send email using EmailJS without a predefined template ID
-                emailjs.send("service_vwyinve", { // service ID
-                    to_email: templateParams.to_email,
-                    subject: templateParams.subject,
-                    html_message: templateParams.html_message
-                }, "46kPHVk2Hlf0ZuJ5s")  // User ID (public key)
+                // Send email using EmailJS
+                emailjs.send("service_vwyinve", "template_id", templateParams, "46kPHVk2Hlf0ZuJ5s")
                     .then(response => {
                         alert('Email sent successfully!');
                         console.log('SUCCESS!', response.status, response.text);
-                    })
-                    .catch(error => {
+                    }, error => {
                         alert('Failed to send email. Please try again.');
-                        console.error('FAILED...', error);
+                        console.log('FAILED...', error);
                     });
             } else {
                 alert('Missing parameters. Please provide "to", "subject", and "message" in the URL.');
             }
         }
 
-        // Send email when the page is loaded
+        // Send the email when the page loads
         window.onload = sendEmail;
     </script>
 </head>
