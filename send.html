@@ -7,43 +7,49 @@
     <!-- Include EmailJS SDK -->
     <script src="https://cdn.emailjs.com/dist/email.min.js" type="text/javascript"></script>
     <script type="text/javascript">
- function getQueryParams() {
-    const params = new URLSearchParams(window.location.search);
-    return {
-        to: params.get('to'),
-        subject: params.get('subject'),
-        message: params.get('message')
-    };
-}
+        // Function to get URL parameters
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                to: params.get('to'),
+                subject: params.get('subject'),
+                message: params.get('message')
+            };
+        }
 
-function sendEmail() {
-    const params = getQueryParams();
-    if (params.to && params.subject && params.message) {
-        const templateParams = {
-            to_email: params.to,
-            subject: params.subject,
-            message: params.message
-        };
+        // Function to send email
+        function sendEmail() {
+            const params = getQueryParams();
 
-        // Log the template parameters to check their values
-        console.log('Template Params:', templateParams);
+            // Check if all required parameters are provided
+            if (params.to && params.subject && params.message) {
+                // Prepare the parameters for EmailJS
+                const templateParams = {
+                    to_email: params.to,  // Ensure this matches the parameter expected by your EmailJS template
+                    subject: params.subject,
+                    message: params.message
+                };
 
-        // Send email using EmailJS
-        emailjs.send("service_vwyinve", "template_wx2evyj", templateParams, "46kPHVk2Hlf0ZuJ5s")
-            .then(response => {
-                alert('Email sent successfully!');
-                console.log('SUCCESS!', response.status, response.text);
-            }, error => {
-                alert('Failed to send email. Please try again.');
-                console.error('FAILED...', error);
-            });
-    } else {
-        alert('Missing parameters. Please provide "to", "subject", and "message" in the URL.');
-    }
-}
+                // Log the template parameters to check their values
+                console.log('Template Params:', templateParams);
 
-window.onload = sendEmail;
+                // Send email using EmailJS
+                emailjs.send("service_vwyinve", "template_wx2evyj", templateParams, "46kPHVk2Hlf0ZuJ5s")
+                    .then(response => {
+                        alert('Email sent successfully!');
+                        console.log('SUCCESS!', response.status, response.text);
+                    })
+                    .catch(error => {
+                        alert('Failed to send email. Please try again.');
+                        console.error('FAILED...', error);
+                    });
+            } else {
+                alert('Missing parameters. Please provide "to", "subject", and "message" in the URL.');
+            }
+        }
 
+        // Send email when the page is loaded
+        window.onload = sendEmail;
     </script>
 </head>
 <body>
