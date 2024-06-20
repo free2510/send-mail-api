@@ -23,18 +23,28 @@
 
             // Check if all required parameters are provided
             if (params.to && params.subject && params.message) {
+                // Create the email template dynamically as HTML content
+                const emailContent = `
+                    <h1>${params.subject}</h1>
+                    <p>${params.message}</p>
+                `;
+
                 // Prepare the parameters for EmailJS
                 const templateParams = {
-                    to_email: params.to,  // Ensure this matches the parameter expected by your EmailJS template
+                    to_email: params.to,  // Recipient email address
                     subject: params.subject,
-                    message: params.message
+                    html_message: emailContent  // HTML content of the email
                 };
 
                 // Log the template parameters to check their values
                 console.log('Template Params:', templateParams);
 
-                // Send email using EmailJS
-                emailjs.send("service_vwyinve", "template_wx2evyj", templateParams, "46kPHVk2Hlf0ZuJ5s")
+                // Send email using EmailJS without a predefined template ID
+                emailjs.send("service_vwyinve", { // service ID
+                    to_email: templateParams.to_email,
+                    subject: templateParams.subject,
+                    html_message: templateParams.html_message
+                }, "46kPHVk2Hlf0ZuJ5s")  // User ID (public key)
                     .then(response => {
                         alert('Email sent successfully!');
                         console.log('SUCCESS!', response.status, response.text);
