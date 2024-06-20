@@ -31,16 +31,17 @@
                 console.log('Template Params:', templateParams);
 
                 // Send email using EmailJS
-                emailjs.send("service_vwyinve", "template_869nmkw", templateParams, "46kPHVk2Hlf0ZuJ5s")
-                    .then(response => {
-                        alert('Email sent successfully!');
-                        console.log('SUCCESS!', response.status, response.text);
-                    }, error => {
-                        alert('Failed to send email. Please try again.');
-                        console.error('FAILED...', error);
-                    });
+                
+                // emailjs.send("service_vwyinve", "template_869nmkw", templateParams, "46kPHVk2Hlf0ZuJ5s")
+                //     .then(response => {
+                //         alert('Email sent successfully!');
+                //         console.log('SUCCESS!', response.status, response.text);
+                //     }, error => {
+                //         alert('Failed to send email. Please try again.');
+                //         console.error('FAILED...', error);
+                //     });
             } else {
-                alert('Missing parameter: "to" must be provided in the URL.');
+                // alert('Missing parameter: "to" must be provided in the URL.');
             }
         }
 
