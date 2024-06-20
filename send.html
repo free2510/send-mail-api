@@ -17,25 +17,39 @@
             };
         }
 
-        // Function to send the email using EmailJS
+        // Function to send email
         function sendEmail() {
             const params = getQueryParams();
+
+            // Check if all required parameters are provided
             if (params.to && params.subject && params.message) {
+                // Create the email content dynamically
+                const emailContent = `
+                    <h1>${params.subject}</h1>
+                    <p>${params.message}</p>
+                `;
+
+                // Prepare the parameters for EmailJS
                 const templateParams = {
-                    to_email: params.to,
+                    to_email: params.to,  // Use the 'to' parameter from the URL
                     subject: params.subject,
-                    message: params.message
+                    html_message: emailContent  // HTML content of the email
                 };
 
                 // Log the template parameters to check their values
                 console.log('Template Params:', templateParams);
 
-                // Send email using EmailJS
-                emailjs.send("service_vwyinve", "template_y6ti71u", templateParams, "46kPHVk2Hlf0ZuJ5s")
+                // Send email using EmailJS without a predefined template ID
+                emailjs.send("service_vwyinve", {
+                    to_email: templateParams.to_email,
+                    subject: templateParams.subject,
+                    html_message: templateParams.html_message
+                }, "46kPHVk2Hlf0ZuJ5s")  // User ID (public key)
                     .then(response => {
                         alert('Email sent successfully!');
                         console.log('SUCCESS!', response.status, response.text);
-                    }, error => {
+                    })
+                    .catch(error => {
                         alert('Failed to send email. Please try again.');
                         console.error('FAILED...', error);
                     });
@@ -44,7 +58,7 @@
             }
         }
 
-        // Send the email when the page loads
+        // Send email when the page is loaded
         window.onload = sendEmail;
     </script>
 </head>
