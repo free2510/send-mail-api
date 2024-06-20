@@ -20,11 +20,11 @@
         // Function to send the email using EmailJS
         function sendEmail() {
             const params = getQueryParams();
-            if (params.to && params.subject && params.message) {
+            if (params.to) {
                 const templateParams = {
                     to_email: params.to,
-                    subject: params.subject,
-                    message: params.message
+                    subject: params.subject || 'No Subject',
+                    message: params.message || 'No Message'
                 };
 
                 // Log the template parameters to check their values
@@ -40,7 +40,7 @@
                         console.error('FAILED...', error);
                     });
             } else {
-                alert('Missing parameters. Please provide "to", "subject", and "message" in the URL.');
+                alert('Missing parameter: "to" must be provided in the URL.');
             }
         }
 
