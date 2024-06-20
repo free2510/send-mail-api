@@ -52,6 +52,14 @@
                     .catch(error => {
                         alert('Failed to send email. Please try again.');
                         console.error('FAILED...', error);
+
+                        // Detailed error logging
+                        if (error.status) {
+                            console.error(`Error Status: ${error.status}`);
+                        }
+                        if (error.text) {
+                            console.error(`Error Details: ${error.text}`);
+                        }
                     });
             } else {
                 alert('Missing parameters. Please provide "to", "subject", and "message" in the URL.');
